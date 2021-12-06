@@ -19,7 +19,7 @@ http://tiny.cc/Calorify-Video-Demo
     MongoDB - the database
     Express - a javascript framework that is used for the back-end part of the application
     React - a javascript framework that is used for the front-end part of the application
-    Node - a javascript web server that runs the application*
+    Node - a javascript web server that runs the application
 ### -Authentication:
     JWT (JSON Web Token)
 ### -API Testing:
