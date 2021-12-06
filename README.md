@@ -12,7 +12,7 @@ http://tiny.cc/Calorify-Video-Demo
 #### -Custom Food Database (By providing the amount of proteins, carbohydrates and fats of a specific food, the user can add it to the database)
 #### -Daily Meal Tracker
 #### -Workout Tracker
-#### And many more. For a more detailed overview of the functionalities check this file.
+#### And many more. For a more detailed overview of the functionalities check [this file](Detailed-Functionality-Overview.md).
 
 # Technology used:
 ### -MERN stack: 
