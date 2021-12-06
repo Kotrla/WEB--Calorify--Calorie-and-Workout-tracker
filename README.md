@@ -1,21 +1,31 @@
 # [WEB] Calorify: Calorie and Workout Tracker
- A full stack web application that allows the users to track their calories, macronutrient needs and workouts.
-
-#Video Demonstatrion:
+ A full stack web application that allows the users to track their calories, macronutrient needs and workouts. This project was used as my BA thesis for graduating at the Polytechnic University of Timisoara - Computers and Information Technology.
+ 
+# Video Demonstatrion:
 http://tiny.cc/Calorify-Video-Demo
 
-#Technology used:
-###-MERN stack: 
-    **MongoDB** - the database
-    **Express** - a javascript framework that is used for the back-end part of the application
-    **React** - a javascript framework that is used for the front-end part of the application
-    **Node** - a javascript web server that runs the application*
-###-Authentication:
-    **JWT (JSON Web Token)**
-###-API Testing:
-    **Postman**
+# Features: 
+#### -User Login/Registration
+#### -Modifying personal information (Age, Weight, Fitness Goals, Name, Email)
+#### -Automatic Calorie and Macronutrient calculation (Based on the information that the user provided)
+#### -Custom Calorie and Macronutrient goals (The user can choose if he would like to set them manually)
+#### -Custom Food Database (By providing the amount of proteins, carbohydrates and fats of a specific food, the user can add it to the database)
+#### -Daily Meal Tracker
+#### -Workout Tracker
+#### And many more. For a more detailed overview of the functionalities check this file.
 
-#About:
+# Technology used:
+### -MERN stack: 
+    MongoDB - the database
+    Express - a javascript framework that is used for the back-end part of the application
+    React - a javascript framework that is used for the front-end part of the application
+    Node - a javascript web server that runs the application*
+### -Authentication:
+    JWT (JSON Web Token)
+### -API Testing:
+    Postman
+
+# About:
 The main objective of this application was to make it simple, by simple, i am referring to the usability of the application from any type of user which means anyone can understand it even if they aren’t that familiar with computers. While, at the same time not neglecting any feature of the application. If it’s simple to use it doesn’t mean that it has to lack features. The objective was met and i am happy with the outcome.
 
 With these thoughts in mind, i successfully made an application whose features include the tracking of the macronutrients that the user consumed, even in the case of a custom made meal that only the user knows the recipe of, he can easily add the base ingredients to our database, set the quantity used in the recipe and still be able to follow his fitness goals, while eating delicious and creative meals. There is also a “History” tab containing the meals that the user previously consumed, if the user is curious about that. If the user added a food by mistake, he can delete it by pressing the noticeable red button.
