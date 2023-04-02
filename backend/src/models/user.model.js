@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
-const Joi = require("joi");
-const User = mongoose.model(
-  "User",
+import joi from 'joi';
+import mongoose from 'mongoose';
+
+export const User = mongoose.model(
+  'User',
   new mongoose.Schema({
     personal: {
       firstName: {
@@ -47,35 +48,31 @@ const User = mongoose.model(
   })
 );
 
-function validateCustom(user) {
-  const schema = Joi.object({
+export function validateUser(user) {
+  const schema = joi.object({
     personal: {
-      firstName: Joi.string().min(4).max(20),
-      lastName: Joi.string().min(4).max(20),
-      gender: Joi.string().min(2).max(20),
-      goal: Joi.string().min(2).max(20),
-      date: Joi.string(),
+      firstName: joi.string().min(4).max(20),
+      lastName: joi.string().min(4).max(20),
+      gender: joi.string().min(2).max(20),
+      goal: joi.string().min(2).max(20),
+      date: joi.string(),
     },
     credentials: {
-      email: Joi.string().email().required(),
-      password: Joi.string().min(4).max(255).required(),
+      email: joi.string().email().required(),
+      password: joi.string().min(4).max(255).required(),
     },
-    stats: { weight: Joi.string(), height: Joi.string() },
+    stats: { weight: joi.string(), height: joi.string() },
   });
   return schema.validate(user);
 }
 
-function getAge(dateString) {
-  var today = new Date();
-  var birthDate = new Date(dateString);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
+export function getAge(dateString) {
+  const today = new Date();
+  const birthDate = new Date(dateString);
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     age--;
   }
   return age;
 }
-
-module.exports.getAge = getAge;
-module.exports.validate = validateCustom;
-module.exports.User = User;

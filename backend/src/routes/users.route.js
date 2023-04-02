@@ -1,27 +1,27 @@
-const express = require("express");
+import bcrypt from 'bcrypt';
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import { requireLogin } from '../middleware/auth.js';
+import { calculateMacros } from '../utils/macroFunctions.js';
+import { User, validateUser, getAge } from '../models/user.model.js';
+
 const router = express.Router();
 
-const { User, validate, getAge } = require("../models/user");
+router.get('/', requireLogin, async (req, res) => {
+  const user = await User.find({ _id: req.user._id });
 
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { requireLogin } = require("../middleware/auth");
-const { calculateMacros } = require("../calculatingLogic/macroFunctions");
-
-router.get("/", requireLogin, async (req, res) => {
-  const users = await User.find({ _id: req.user._id });
-
-  res.send(users);
+  res.send(user);
 });
 
-router.post("/register", async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+router.post('/register', async (req, res) => {
+  if (!!validateUser(req.body)) return res.status(400).send(error.details[0].message);
 
-  let users = await User.findOne({ email: req.body.credentials.email });
-  if (users) {
-    return res.status(455).send("Email already in use");
+  const user = await User.findOne({ email: req.body.credentials.email });
+
+  if (user) {
+    return res.status(455).send('Email already in use');
   }
+
   const hash = await bcrypt.hash(req.body.credentials.password, 10);
   const ageCalc = getAge(req.body.personal.date);
   const macros = calculateMacros(
@@ -57,35 +57,37 @@ router.post("/register", async (req, res) => {
       fats: macros.fats,
     },
   });
-  await users.save();
-  res.send(users);
+
+  await user.save();
+  
+  res.send(user);
 });
 
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
-    let user = await User.findOne({ "credentials.email": email });
-
+    const user = await User.findOne({ 'credentials.email': email });
+    
     if (!user) {
-      return res.status(400).send("Incorect credentials");
+      return res.status(400).send('Incorect credentials');
     }
     const isMatch = await bcrypt.compare(password, user.credentials.password);
 
     if (!isMatch) {
-      return res.status(400).send("Incorect credentials");
+      return res.status(400).send('Incorect credentials');
     }
 
     const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: '1h',
     });
 
     return res.send({ token });
   } catch (e) {
-    return res.status(400).send("Erorr" + e);
+    return res.status(400).send('Erorr' + e);
   }
 });
 
-router.put("/update", requireLogin, async (req, res) => {
+router.put('/update', requireLogin, async (req, res) => {
   const ageCalc = getAge(req.body.personal.date);
   const macros = calculateMacros(
     Number(req.body.stats.weight),
@@ -95,7 +97,7 @@ router.put("/update", requireLogin, async (req, res) => {
     req.body.personal.goal
   );
 
-  let userData = {
+  const userData = {
     personal: {
       firstName: req.body.personal.firstName,
       lastName: req.body.personal.lastName,
@@ -122,16 +124,17 @@ router.put("/update", requireLogin, async (req, res) => {
     },
   };
 
-  let users = await User.findOneAndUpdate({ _id: req.body._id }, userData, {
+  const user = await User.findOneAndUpdate({ _id: req.body._id }, userData, {
     new: true,
   });
 
+  res.send(user);
+});
+
+router.put('/updateMacros', requireLogin, async (req, res) => {
+  const users = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
+
   res.send(users);
 });
 
-router.put("/updateMacros", requireLogin, async (req, res) => {
-  let users = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
-
-  res.send(users);
-});
-module.exports = router;
+export { router as UsersRoute };

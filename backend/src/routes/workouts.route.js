@@ -1,24 +1,23 @@
-const express = require("express");
+import express from 'express';
+import { requireLogin } from '../middleware/auth.js';
+import { Workout } from '../models/workout.model.js';
+
 const router = express.Router();
 
-const { requireLogin } = require("../middleware/auth");
-const { Workout } = require("../models/workout");
-const mongoose = require("mongoose");
-
-router.get("/", requireLogin, async (req, res) => {
+router.get('/', requireLogin, async (req, res) => {
   const workout = await Workout.find({ user: req.user._id });
 
   res.send(workout);
 });
 
-router.post("/", requireLogin, async (req, res) => {
-  const date = new Date().toLocaleDateString("en-US");
+router.post('/', requireLogin, async (req, res) => {
+  const date = new Date().toLocaleDateString('en-US');
   let workout = await Workout.findOne({
     user: req.user._id,
     dateCreated: date,
   });
-  if (!req.body.name) return res.status(420).send("Enter a name please.");
-  if (!req.body.reps) return res.status(420).send("Enter reps please.");
+  if (!req.body.name) return res.status(420).send('Enter a name please.');
+  if (!req.body.reps) return res.status(420).send('Enter reps please.');
   if (workout) {
     await Workout.findOneAndUpdate(
       {
@@ -50,8 +49,8 @@ router.post("/", requireLogin, async (req, res) => {
   res.send(workout);
 });
 
-router.delete("/", requireLogin, async (req, res) => {
-  const date = new Date().toLocaleDateString("en-US");
+router.delete('/', requireLogin, async (req, res) => {
+  const date = new Date().toLocaleDateString('en-US');
 
   let workout = await Workout.findOneAndUpdate(
     {
@@ -72,4 +71,4 @@ router.delete("/", requireLogin, async (req, res) => {
   res.send(workout);
 });
 
-module.exports = router;
+export { router as WorkoutsRoute };

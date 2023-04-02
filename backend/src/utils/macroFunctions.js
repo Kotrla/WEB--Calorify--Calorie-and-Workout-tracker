@@ -1,5 +1,5 @@
-function calculateMacros(weight, height, gender, age, goal) {
-  let protein = 0,
+export function calculateMacros(weight, height, gender, age, goal) {
+  const protein = 0,
     carbs = 0,
     fats = 0,
     kcal = 0;
@@ -63,27 +63,15 @@ function calculateMacros(weight, height, gender, age, goal) {
   carbs = ((kcal * 0.5) / 4).toFixed(0);
   fats = ((kcal * 0.2) / 9).toFixed(0);
 
-  return {
-    protein: protein,
-    carbs: carbs,
-    fats: fats,
-    kcal: kcal,
-  };
+  return { protein, carbs, fats, kcal };
 }
 
-function calculateFoodMacros(protein, carbs, fats, kcal, quantity) {
-  let x = quantity / 100;
-  let newProtein = (protein * x).toFixed(0);
-  let newCarbs = (carbs * x).toFixed(0);
-  let newFats = (fats * x).toFixed(0);
-  let newKcal = (kcal * x).toFixed(0);
-  return {
-    protein: newProtein,
-    carbs: newCarbs,
-    fats: newFats,
-    kcal: newKcal,
-  };
+export function calculateFoodMacros(protein, carbs, fats, kcal, quantity) {
+  const multiplier = quantity / 100;
+  const newProtein = (protein * multiplier).toFixed(0);
+  const newCarbs = (carbs * multiplier).toFixed(0);
+  const newFats = (fats * multiplier).toFixed(0);
+  const newKcal = (kcal * multiplier).toFixed(0);
+  
+  return { protein: newProtein, carbs: newCarbs, fats: newFats, kcal: newKcal };
 }
-
-module.exports.calculateFoodMacros = calculateFoodMacros;
-module.exports.calculateMacros = calculateMacros;

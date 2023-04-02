@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
-const Joi = require("joi");
+import joi from 'joi';
+import mongoose from 'mongoose';
+
 //food class for the food database:
 //users can add their own food to it, its a user generated database.
-const Food = mongoose.model(
+export const Food = mongoose.model(
   "Food",
   new mongoose.Schema({
     name: { type: String, required: true },
@@ -16,16 +17,14 @@ const Food = mongoose.model(
   })
 );
 
-function validateCustom(food) {
-  const schema = Joi.object({
-    name: Joi.string().max(20).required(),
-    protein: Joi.number(),
-    carbs: Joi.number(),
-    fats: Joi.number(),
-    kcal: Joi.number().required(),
+export function customFoodValidation(food) {
+  const schema = joi.object({
+    name: joi.string().max(20).required(),
+    protein: joi.number(),
+    carbs: joi.number(),
+    fats: joi.number(),
+    kcal: joi.number().required(),
   });
 
   return schema.validate(food);
 }
-module.exports.validate = validateCustom;
-module.exports.Food = Food;

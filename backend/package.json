@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
@@ -21,8 +22,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "runyy": "concurrently \"node index.js\"  \"cd ../frontend  && npm start \""
+    "calorify-run": "concurrently \"node src/index.js\"  \"cd ../frontend  && npm start \""
   },
-  "author": "",
+  "author": "Kristian Kotrla - Koti",
   "license": "ISC"
 }
