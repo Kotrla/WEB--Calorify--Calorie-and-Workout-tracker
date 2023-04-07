@@ -22,6 +22,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm i",
+    "server": "nodemon src/index.js",
     "calorify-run": "concurrently \"node src/index.js\"  \"cd ../frontend  && npm start \""
   },
   "author": "Kristian Kotrla - Koti",
