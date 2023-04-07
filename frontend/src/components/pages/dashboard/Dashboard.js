@@ -123,7 +123,8 @@ export default function Dashboard() {
     <>
       <div className={classes.container}>
         <Container>
-          <Grid container justify="space-around">
+          { userF &&
+            <Grid container justify="space-around">
             <Grid item xs={12} className={classes.titleDiv}>
               <Container>
                 Welcome {userF.personal.firstName}, here is an overview of your
@@ -296,7 +297,8 @@ export default function Dashboard() {
               justify="space-between"
               className={classes.spaceContainer}
             ></Grid>
-          </Grid>
+            </Grid>
+          }
         </Container>
       </div>
     </>

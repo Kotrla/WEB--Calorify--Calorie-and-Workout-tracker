@@ -1,13 +1,12 @@
 import mongoose from 'mongoose';
 
-export const Target = mongoose.model(
-  "Target",
-  new mongoose.Schema({
+const targetSchema = new mongoose.Schema({
     user: { type: String },
-    kcal: { type: String, default: 0 },
-    protein: { type: String, default: 0 },
-    carbs: { type: String, default: 0 },
-    fats: { type: String, default: 0 },
+    kcal: { type: Number, default: 0 },
+    protein: { type: Number, default: 0 },
+    carbs: { type: Number, default: 0 },
+    fats: { type: Number, default: 0 },
     dateCreated: { type: String }
-  })
-);
+});
+
+export const Target = mongoose.model("Target", targetSchema);

@@ -1,20 +1,11 @@
 import express from 'express';
-import { Target } from '../models/target.model.js';
 import { requireLogin } from '../middleware/auth.js';
+import { getTargetValues, getDailyValues } from '../controllers/target.controller.js';
 
 const router = express.Router();
 
-router.get("/", requireLogin, async (req, res) => {
-  const target = await Target.find({ user: req.user._id });
+router.get("/", requireLogin, getTargetValues);
 
-  res.send(target);
-});
-
-router.get("/daily", requireLogin, async (req, res) => {
-  const date = new Date().toLocaleDateString("en-US");
-  const target = await Target.find({ user: req.user._id, dateCreated: date });
-
-  res.send(target);
-});
+router.get("/daily", requireLogin, getDailyValues);
 
 export { router as TargetRoute };
