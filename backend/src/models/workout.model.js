@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
 
-export const Workout = mongoose.model(
-  'Workout',
-  new mongoose.Schema({
-    exercises: [],
+const workoutSchema = new mongoose.Schema({
+    exercises: [{
+      name: { type: String },
+      reps: { type: String }
+    }],
     user: { type: String },
-    dateCreated: { type: String },
-  })
-);
+    dateCreated: { type: String }
+});
+
+export const Workout = mongoose.model('Workout', workoutSchema);

@@ -6,13 +6,7 @@ import { useStyles } from "./styles.js";
 function AddFoodToDb(props) {
   //begin of addding food
   async function addFood() {
-    const food = {
-      name: name,
-      protein: protein,
-      carbs: carbs,
-      fats: fats,
-      kcal: calories,
-    };
+    const food = { name, protein: +protein, carbs: +carbs, fats: +fats, kcal: +calories };
 
     const res = await axios
       .post("/foods/", food, {

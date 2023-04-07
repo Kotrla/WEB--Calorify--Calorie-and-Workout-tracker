@@ -1,16 +1,14 @@
 import mongoose from 'mongoose';
 
-//Meal is the food the user has consumed
-export const Meal = mongoose.model(
-  "Meal",
-  new mongoose.Schema({
-    food: [],
-    user: { type: String }, //the id of the user that added this meal
-    kcal: { type: String, default: 0 },
-    protein: { type: String, default: 0 },
-    carbs: { type: String, default: 0 },
-    fats: { type: String, default: 0 },
+const mealSchema = new mongoose.Schema({
+    food: Array,
+    user: { type: String },
+    kcal: { type: Number, default: 0 },
+    protein: { type: Number, default: 0 },
+    carbs: { type: Number, default: 0 },
+    fats: { type: Number, default: 0 },
     meal: { type: String },
-    dateCreated: { type: String },
-  })
-);
+    dateCreated: { type: String }
+});
+
+export const Meal = mongoose.model("Meal", mealSchema);

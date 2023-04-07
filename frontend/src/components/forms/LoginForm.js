@@ -35,7 +35,7 @@ export default function LoginForm() {
       .catch((error) => {
         alert(error.response.data.toString());
       });
-
+    
     if (res) {
       alert("Login succesfull");
       localStorage.setItem("token", res.data.token);
