@@ -70,12 +70,9 @@ export default function Workouts() {
     setShowModalWorkout((prev) => !prev);
   };
 
-  let date = new Date().toLocaleDateString("en-US");
-  function renderExercise(d) {
-    return exercises
-      .filter((ef) => ef.dateCreated.includes(d))
-      .map((object) =>
-        object.exercises.map((item, index) => (
+  function renderExercise() {
+    return exercises.exercises
+      ?.map(((item, index) => (
           <ExerciseItem
             key={index}
             updateFunction={getExercises}
@@ -83,7 +80,7 @@ export default function Workouts() {
             name={item.name}
             reps={item.reps}
           />
-        ))
+        ))        
       );
   }
 
@@ -129,7 +126,7 @@ export default function Workouts() {
                 <Typography className={classes.label}>Exercises:</Typography>
               </Container>
             </Grid>
-            {renderExercise(date)}
+            {renderExercise()}
             <Grid
               container
               justify="space-between"

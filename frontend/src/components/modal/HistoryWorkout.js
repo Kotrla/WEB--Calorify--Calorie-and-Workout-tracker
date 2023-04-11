@@ -16,7 +16,7 @@ function HistoryWorkout(props) {
   const [exercises, setExercises] = useState(exercisesArray);
   const getExercises = async () => {
     const res = await axios
-      .get("/workout/", {
+      .get("/workout/all", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -31,7 +31,7 @@ function HistoryWorkout(props) {
 
   //rendering function
   function render() {
-    return exercises.map((object) => (
+    return exercises?.map((object) => (
       <ExerciseItemHistory
         key={object._id}
         date={object.dateCreated}
