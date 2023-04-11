@@ -40,6 +40,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
+    "build-remote": "npm i && npm run build",
     "start": "node --es-module-specifier-resolution=node ./build/index.js",
     "dev": "nodemon --files src/index.ts",
     "lint": "eslint **/*.ts --parser-options={tsconfigRootDir:null}"
