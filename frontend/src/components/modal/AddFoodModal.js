@@ -26,7 +26,7 @@ function AddFoodModal(props) {
         },
       })
       .then((response) => {
-        setFoodlist(response.data);
+        setFoodlist(response.data.foods);
       });
   };
   //end of fetching food list

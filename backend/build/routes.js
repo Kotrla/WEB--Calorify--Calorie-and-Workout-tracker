@@ -1,0 +1,13 @@
+import { UsersRoute } from './routes/users.route.js';
+import { FoodsRoute } from './routes/foods.route.js';
+import { MealsRoute } from './routes/meals.route.js';
+import { TargetRoute } from './routes/target.route.js';
+import { WorkoutsRoute } from './routes/workouts.route.js';
+export default function routes(app) {
+    app.use('/users', UsersRoute);
+    app.use('/foods', FoodsRoute);
+    app.use('/meals', MealsRoute);
+    app.use('/target', TargetRoute);
+    app.use('/workout', WorkoutsRoute);
+}
+//# sourceMappingURL=routes.js.map
