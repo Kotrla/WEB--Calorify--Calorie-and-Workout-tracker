@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 const workoutSchema = new mongoose.Schema({
     exercises: [{
             name: { type: String },
-            reps: { type: String },
+            reps: { type: Number },
+            load: { type: Number }
         }],
     user: { type: String },
     dateCreated: { type: String },

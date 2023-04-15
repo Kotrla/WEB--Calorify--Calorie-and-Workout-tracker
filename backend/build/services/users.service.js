@@ -6,7 +6,7 @@ export function getUserById(userId = '') {
             return yield User.find({ _id: userId });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t find user');
         }
     });
 }
@@ -16,7 +16,7 @@ export function getUserByEmail(email) {
             return yield User.findOne({ 'credentials.email': email });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t find user');
         }
     });
 }
@@ -26,7 +26,7 @@ export function addUser(user) {
             return yield User.create(user);
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t add user');
         }
     });
 }
@@ -36,7 +36,7 @@ export function updateUserById(userId = '', userData) {
             return yield User.findOneAndUpdate({ _id: userId }, userData, { new: true });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t update user');
         }
     });
 }

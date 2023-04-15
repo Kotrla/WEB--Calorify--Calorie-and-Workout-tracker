@@ -8,7 +8,7 @@ export function getTarget(user) {
             return yield Target.find({ user });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t find target');
         }
     });
 }
@@ -18,7 +18,7 @@ export function getDailyConsumed(user, date) {
             return yield Target.findOne({ user, dateCreated: date });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t find consumed calories');
         }
     });
 }
@@ -30,7 +30,7 @@ export function getSpecificTarget(req) {
             return yield Target.findOne({ user: userId, dateCreated: date });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t find specific target');
         }
     });
 }
@@ -46,7 +46,7 @@ export function updateTarget(req, targetFromDb) {
             }, { upsert: true });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t update target');
         }
     });
 }
@@ -59,7 +59,7 @@ export function subtractMacrosFromTarget(req, targetFromDb) {
             return yield Target.findOneAndUpdate({ user: userId, dateCreated: date }, { protein, carbs, fats, kcal }, { new: true });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t subtract macros');
         }
     });
 }

@@ -6,7 +6,7 @@ export function getFoods() {
             return yield Food.find().sort('name');
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t find foods');
         }
     });
 }
@@ -16,7 +16,7 @@ export function addFood(food) {
             return yield Food.create(food);
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t add food');
         }
     });
 }

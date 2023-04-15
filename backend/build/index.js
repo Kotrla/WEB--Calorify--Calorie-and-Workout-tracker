@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
-import config from './config/config';
 import routes from './routes.js';
+import config from './config/config';
 import { corsHeader } from './middleware/corsHeader';
 import connectToDatabase from './utils/connectDatabase';
 const app = express();

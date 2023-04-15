@@ -8,7 +8,7 @@ export function getTodaysMeals(userId) {
             return yield Meal.find({ user: userId, dateCreated: date });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t find meal');
         }
     });
 }
@@ -18,7 +18,7 @@ export function getAllUserMeals(userId) {
             return yield Meal.find({ user: userId });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t find meals');
         }
     });
 }
@@ -31,7 +31,7 @@ export function getSpecificMeal(req) {
             return yield Meal.findOne({ user: userId, dateCreated: date, meal });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t find meal');
         }
     });
 }
@@ -43,26 +43,19 @@ export function updateMeal(req, mealFromDb) {
             const { name } = food;
             const date = new Date().toLocaleDateString('en-US');
             const { protein, carbs, fats, kcal } = calculateTotalMealMacros(food, mealFromDb, quantity);
-            const { protein: calculatedProtein, carbs: calculatedCarbs, fats: calculatedFats, kcal: calculatedKcal, } = calculateMealMacros(food, quantity);
+            const { protein: calculatedProtein, carbs: calculatedCarbs, fats: calculatedFats, kcal: calculatedKcal } = calculateMealMacros(food, quantity);
             return yield Meal.findOneAndUpdate({ user: userId, dateCreated: date, meal }, {
-                protein,
-                carbs,
-                fats,
-                kcal,
+                protein, carbs, fats, kcal,
                 $push: {
                     food: {
-                        name,
-                        protein: calculatedProtein,
-                        carbs: calculatedCarbs,
-                        fats: calculatedFats,
-                        kcal: calculatedKcal,
-                        quantity,
-                    },
-                },
+                        name, protein: calculatedProtein, carbs: calculatedCarbs,
+                        fats: calculatedFats, kcal: calculatedKcal, quantity
+                    }
+                }
             }, { upsert: true });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t update meal');
         }
     });
 }
@@ -73,19 +66,16 @@ export function removeMeal(req, mealFromDb) {
             const { protein: sentProtein, carbs: sentCarbs, fats: sentFats, kcal: sentKcal, name } = req.body;
             const { protein, carbs, fats, kcal } = subtractMacros(mealFromDb, req.body);
             return yield Meal.findOneAndUpdate({ _id: mealId }, {
-                protein,
-                carbs,
-                fats,
-                kcal,
+                protein, carbs, fats, kcal,
                 $pull: {
                     food: {
-                        name, protein: sentProtein, carbs: sentCarbs, fats: sentFats, kcal: sentKcal,
-                    },
-                },
+                        name, protein: sentProtein, carbs: sentCarbs, fats: sentFats, kcal: sentKcal
+                    }
+                }
             }, { new: true });
         }
         catch (e) {
-            throw new Error('e');
+            throw new Error('Couldn\'t remove meal');
         }
     });
 }

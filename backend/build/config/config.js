@@ -1,5 +1,5 @@
-import * as dotenv from 'dotenv';
-dotenv.config({ path: './src/.env' });
+import dotenv from 'dotenv';
+dotenv.config();
 export default {
     PORT: process.env.PORT,
     SALT: process.env.SALT,

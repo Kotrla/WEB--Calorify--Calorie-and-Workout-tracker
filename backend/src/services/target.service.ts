@@ -7,7 +7,7 @@ export async function getTarget(user: string) {
   try {
     return await Target.find({ user });
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t find target');
   }
 }
 
@@ -15,7 +15,7 @@ export async function getDailyConsumed(user: string, date: string) {
   try {
     return await Target.findOne({ user, dateCreated: date });
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t find consumed calories');
   }
 }
 
@@ -26,7 +26,7 @@ export async function getSpecificTarget(req: Request) {
 
     return await Target.findOne({ user: userId, dateCreated: date });
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t find specific target');
   }
 }
 
@@ -45,7 +45,7 @@ export async function updateTarget(req: Request, targetFromDb: ITargetModel | nu
       { upsert: true },
     );
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t update target');
   }
 }
 
@@ -61,6 +61,6 @@ export async function subtractMacrosFromTarget(req: Request, targetFromDb: ITarg
       { new: true },
     );
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t subtract macros');
   }
 }
