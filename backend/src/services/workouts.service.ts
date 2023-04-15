@@ -5,7 +5,7 @@ export async function getUserWorkouts(user: string) {
   try {
     return await Workout.find({ user });
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Workouts not found');
   }
 }
 
@@ -15,7 +15,7 @@ export async function getUserCurrentWorkout(user: string) {
 
     return await Workout.findOne({ user, dateCreated: date });
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Workout not found');
   }
 }
 
@@ -31,7 +31,7 @@ export async function addOrUpdateExercise(req: Request) {
       { upsert: true },
     );
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t add workout');
   }
 }
 
@@ -47,6 +47,6 @@ export async function removeExercise(req: Request) {
       { new: true },
     );
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t remove workout');
   }
 }

@@ -1,33 +1,25 @@
-import { Request, Response } from 'express';
 import { IFood } from '../models/food.model';
+import { Request, Response, NextFunction } from 'express';
 import { addFood, getFoods } from '../services/foods.service';
 import { IAllFoodsResponse, IFoodResponse } from '../ts/models/response/foods-responses.model';
 
-export const getAllFoods = async (req: Request<{}, IAllFoodsResponse, {}>, res: Response) => {
+export const getAllFoods = async (req: Request<{}, IAllFoodsResponse, {}>, res: Response, next: NextFunction) => {
   try {
     const foods = await getFoods();
 
-    return res.send({ foods });
+    res.send({ foods });
   } catch (e) {
-    return res.send([]);
+    next(e);
   }
 };
 
-export const addFoodToDatabase = async (req: Request<{}, IFoodResponse, IFood>, res: Response) => {
+export const addFoodToDatabase = async (req: Request<{}, IFoodResponse, IFood>, res: Response, next: NextFunction) => {
   try {
-    const {
-      name, protein, carbs, fats, kcal,
-    } = req.body;
-    const addedFood = await addFood({
-      name, protein, carbs, fats, kcal,
-    });
+    const { name, protein, carbs, fats, kcal } = req.body;
+    const addedFood = await addFood({ name, protein, carbs, fats, kcal });
 
-    return res.send(addedFood);
-  } catch (e: any) {
-    if (!(e.name === 'MongoError' && e.code === 11000)) {
-      return res.status(422).send(e);
-    }
-
-    return res.status(422).send('The food name already exists. Please choose a different name.');
+    res.send(addedFood);
+  } catch (e) {
+    next(e);
   }
 };

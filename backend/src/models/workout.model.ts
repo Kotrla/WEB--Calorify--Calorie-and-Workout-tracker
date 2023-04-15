@@ -2,7 +2,8 @@ import mongoose, { Document } from 'mongoose';
 
 export interface IExercise {
   name: string;
-  reps: string;
+  reps: number;
+  load: number;
 }
 
 export interface IWorkout {
@@ -16,7 +17,8 @@ export interface IWorkoutModel extends IWorkout, Document {}
 const workoutSchema = new mongoose.Schema({
   exercises: [{
     name: { type: String },
-    reps: { type: String },
+    reps: { type: Number },
+    load: { type: Number }
   }],
   user: { type: String },
   dateCreated: { type: String },

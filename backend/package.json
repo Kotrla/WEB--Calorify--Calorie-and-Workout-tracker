@@ -43,7 +43,7 @@
     "build-remote": "npm i && npm run build",
     "start": "node --es-module-specifier-resolution=node ./build/index.js",
     "dev": "nodemon --files src/index.ts",
-    "lint": "eslint **/*.ts --parser-options={tsconfigRootDir:null}"
+    "lint": "eslint **/*.ts --parser-options={tsconfigRootDir:null} --fix"
   },
   "author": "Kristian Kotrla - Koti",
   "license": "ISC"

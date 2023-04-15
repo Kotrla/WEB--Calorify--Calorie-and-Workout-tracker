@@ -11,7 +11,7 @@ export async function getTodaysMeals(userId: string) {
 
     return await Meal.find({ user: userId, dateCreated: date });
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t find meal');
   }
 }
 
@@ -19,7 +19,7 @@ export async function getAllUserMeals(userId: string) {
   try {
     return await Meal.find({ user: userId });
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t find meals');
   }
 }
 
@@ -31,7 +31,7 @@ export async function getSpecificMeal(req: Request<{}, IMealResponse, IUpdateMea
 
     return await Meal.findOne({ user: userId, dateCreated: date, meal });
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t find meal');
   }
 }
 
@@ -43,31 +43,24 @@ export async function updateMeal(req: Request<{}, IMealResponse, IUpdateMealRequ
     const date = new Date().toLocaleDateString('en-US');
     const { protein, carbs, fats, kcal } = calculateTotalMealMacros(food, mealFromDb, quantity);
     const {
-      protein: calculatedProtein, carbs: calculatedCarbs, fats: calculatedFats, kcal: calculatedKcal,
+      protein: calculatedProtein, carbs: calculatedCarbs, fats: calculatedFats, kcal: calculatedKcal
     } = calculateMealMacros(food, quantity);
 
     return await Meal.findOneAndUpdate(
       { user: userId, dateCreated: date, meal },
       {
-        protein,
-        carbs,
-        fats,
-        kcal,
+        protein, carbs, fats, kcal,
         $push: {
           food: {
-            name,
-            protein: calculatedProtein,
-            carbs: calculatedCarbs,
-            fats: calculatedFats,
-            kcal: calculatedKcal,
-            quantity,
-          },
-        },
+            name, protein: calculatedProtein, carbs: calculatedCarbs,
+            fats: calculatedFats, kcal: calculatedKcal, quantity
+          }
+        }
       },
-      { upsert: true },
+      { upsert: true }
     );
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t update meal');
   }
 }
 
@@ -80,19 +73,16 @@ export async function removeMeal(req: Request<{}, IMealResponse, IFoodModel>, me
     return await Meal.findOneAndUpdate(
       { _id: mealId },
       {
-        protein,
-        carbs,
-        fats,
-        kcal,
+        protein, carbs, fats, kcal,
         $pull: {
           food: {
-            name, protein: sentProtein, carbs: sentCarbs, fats: sentFats, kcal: sentKcal,
-          },
-        },
+            name, protein: sentProtein, carbs: sentCarbs, fats: sentFats, kcal: sentKcal
+          }
+        }
       },
-      { new: true },
+      { new: true }
     );
   } catch (e) {
-    throw new Error('e');
+    throw new Error('Couldn\'t remove meal');
   }
 }
