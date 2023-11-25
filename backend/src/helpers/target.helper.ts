@@ -15,3 +15,7 @@ export function calculateTargetMacros(food: IFoodModel, target: ITargetModel | n
     fats: targetFats + calculatedFats, kcal: targetKcal + calculatedKcal
   };
 }
+
+export function generateBaseDaily(user: string, date: string) {
+  return { user, protein: 0, carbs: 0, fats: 0, kcal: 0, date }
+}

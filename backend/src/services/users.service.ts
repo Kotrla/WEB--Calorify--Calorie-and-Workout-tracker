@@ -2,7 +2,7 @@ import { IUser, User } from '../models/user.model';
 
 export async function getUserById(userId: string = '') {
   try {
-    return await User.find({ _id: userId });
+    return await User.findOne({ _id: userId });
   } catch (e) {
     throw new Error('Couldn\'t find user');
   }

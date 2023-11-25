@@ -21,13 +21,13 @@ export async function getUserCurrentWorkout(user: string) {
 
 export async function addOrUpdateExercise(req: Request) {
   try {
-    const { name, reps } = req.body;
+    const { name, reps, load } = req.body;
     const { _id: userId } = req.user;
     const date = new Date().toLocaleDateString('en-US');
 
     return await Workout.findOneAndUpdate(
       { user: userId, dateCreated: date },
-      { $push: { exercises: { name, reps } } },
+      { $push: { exercises: { name, reps, load } } },
       { upsert: true },
     );
   } catch (e) {

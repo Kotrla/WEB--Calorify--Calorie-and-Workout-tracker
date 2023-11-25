@@ -18,7 +18,7 @@ export const addFoodToDatabase = async (req: Request<{}, IFoodResponse, IFood>, 
     const { name, protein, carbs, fats, kcal } = req.body;
     const addedFood = await addFood({ name, protein, carbs, fats, kcal });
 
-    res.send(addedFood);
+    res.send({ addedFood });
   } catch (e) {
     next(e);
   }

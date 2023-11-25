@@ -1,7 +1,9 @@
-import { IWorkoutModel } from '../../../models/workout.model';
+import { IWorkout } from '../../../models/workout.model';
 
-export interface IWorkoutResponse extends IWorkoutModel { }
+export interface IWorkoutResponse { 
+  workout: IWorkout;
+}
 
 export interface IAllWorkoutsResponse {
-  workouts: IWorkoutResponse[];
+  workouts: IWorkout[];
 }

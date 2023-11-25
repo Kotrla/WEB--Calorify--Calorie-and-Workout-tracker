@@ -9,7 +9,7 @@ export const getUser = async (req: Request<{}, IUserResponse, {}>, res: Response
     const { _id: userId } = req.user;
     const user = await getUserById(userId);
 
-    res.send(user);
+    res.send({ user });
   } catch (e) {
     next(e);
   }

@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { generateBaseDaily } from '../helpers/target.helper';
 import { getDailyConsumed, getTarget } from '../services/target.service';
 import { IAllUserTargetsResponse, ITargetDailyResponse } from '../ts/models/response/target-responses.model';
 
@@ -17,9 +18,11 @@ export const getDailyValues = async (req: Request<{}, ITargetDailyResponse, {}>,
   try {
     const { _id: user } = req.user;
     const date = new Date().toLocaleDateString('en-US');
-    const target = await getDailyConsumed(user, date);
+    const daily = await getDailyConsumed(user, date);
 
-    res.send(target);
+    const dailyToSend = !!daily ? daily : generateBaseDaily(user, date);
+    
+    res.send({ daily: dailyToSend });
   } catch (e) {
     next(e);
   }

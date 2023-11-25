@@ -4,4 +4,6 @@ export interface IAllUserTargetsResponse {
   targets: ITargetModel[];
 }
 
-export interface ITargetDailyResponse extends ITargetModel { }
+export interface ITargetDailyResponse {
+  daily: ITargetModel;
+}

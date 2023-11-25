@@ -19,9 +19,9 @@ export const getWorkout = async (req: Request<{}, IWorkoutResponse | null, {}>, 
     const { _id: userId } = req.user;
     const workout = await getUserCurrentWorkout(userId);
 
-    res.send(workout);
+    res.send({ workout });
   } catch (e) {
-    next(e);
+    next({ workout: null });
   }
 };
 
@@ -29,7 +29,7 @@ export const addExercise = async (req: Request<{}, IWorkoutResponse | null, IWor
   try {
     const workout = await addOrUpdateExercise(req);
 
-    res.send(workout);
+    res.send({ workout });
   } catch (e) {
     next(e);
   }
@@ -39,7 +39,7 @@ export const deleteExercise = async (req: Request<{}, IWorkoutResponse | null, I
   try {
     const workout = await removeExercise(req);
 
-    res.send(workout);
+    res.send({ workout });
   } catch (e) {
     next(e);
   }
