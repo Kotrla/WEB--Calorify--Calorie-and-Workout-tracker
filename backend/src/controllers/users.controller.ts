@@ -7,9 +7,9 @@ import { generateNewUserFromRequest, generateUpdatedUserFromRequest, isCorrectPa
 export const getUser = async (req: Request<{}, IUserResponse, {}>, res: Response, next: NextFunction) => {
   try {
     const { _id: userId } = req.user;
-    const user = await getUserById(userId);
+    const userData = await getUserById(userId);
 
-    res.send({ user });
+    res.send({ userData });
   } catch (e) {
     next(e);
   }
@@ -27,9 +27,9 @@ export const registerUser = async (req: Request<{}, IUserResponse, IUserUpdateRe
     }
 
     const newUser = await generateNewUserFromRequest(req);
-    const user = await addUser(newUser);
+    const userData = await addUser(newUser);
 
-    res.send(user);
+    res.send({ userData });
   } catch (e) {
     next(e);
   }
@@ -66,9 +66,9 @@ export const updateUser = async (req: Request<{}, IUserResponse, IUserUpdateRegi
   try {
     const { _id: userId } = req.user;
     const updatedUser = generateUpdatedUserFromRequest(req);
-    const user = await updateUserById(userId, updatedUser);
+    const userData = await updateUserById(userId, updatedUser);
 
-    res.send(user);
+    res.send({ userData });
   } catch (e) {
     next(e);
   }
@@ -76,11 +76,11 @@ export const updateUser = async (req: Request<{}, IUserResponse, IUserUpdateRegi
 
 export const updateMacros = async (req: Request<{}, IUserResponse, IUserUpdateRegisterRequest>, res: Response, next: NextFunction) => {
   try {
-    const userData = req.body;
+    const user = req.body;
     const { _id: userId } = req.user;
-    const users = await updateUserById(userId, userData);
+    const userData = await updateUserById(userId, user);
 
-    res.send(users);
+    res.send({ userData });
   } catch (e) {
     next(e);
   }
