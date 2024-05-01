@@ -1,9 +1,9 @@
-import { ITargetModel } from '../../../models/target.model';
+import { ITargetModel } from '../../../models/target.model.js';
 
 export interface IAllUserTargetsResponse {
-  targets: ITargetModel[];
+	targets: ITargetModel[];
 }
 
 export interface ITargetDailyResponse {
-  daily: ITargetModel;
+	daily: ITargetModel;
 }

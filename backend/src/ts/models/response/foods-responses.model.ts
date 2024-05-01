@@ -1,7 +1,7 @@
-import { IFoodModel } from '../../../models/food.model';
+import { IFoodModel } from '../../../models/food.model.js';
 
 export interface IAllFoodsResponse {
-  foods: IFoodModel[];
+	foods: IFoodModel[];
 }
 
-export interface IFoodResponse extends IFoodModel { }
+export interface IFoodResponse extends IFoodModel {}

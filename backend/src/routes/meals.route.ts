@@ -1,6 +1,6 @@
 import express from 'express';
-import { requireLogin } from '../middleware/auth';
-import { getMeals, getAllMeals, addMeal, deleteMeal } from '../controllers/meals.controller';
+import { requireLogin } from '../middleware/auth.js';
+import { getMeals, getAllMeals, addMeal, deleteMeal } from '../controllers/meals.controller.js';
 
 const router = express.Router();
 

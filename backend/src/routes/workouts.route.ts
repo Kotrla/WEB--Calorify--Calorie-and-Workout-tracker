@@ -1,6 +1,6 @@
 import express from 'express';
-import { requireLogin } from '../middleware/auth';
-import { getWorkout, addExercise, deleteExercise, getAllUserWorkouts } from '../controllers/workouts.controller';
+import { requireLogin } from '../middleware/auth.js';
+import { getWorkout, addExercise, deleteExercise, getAllUserWorkouts } from '../controllers/workouts.controller.js';
 
 const router = express.Router();
 

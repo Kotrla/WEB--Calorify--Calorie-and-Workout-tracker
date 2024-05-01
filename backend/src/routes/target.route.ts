@@ -1,6 +1,6 @@
 import express from 'express';
-import { requireLogin } from '../middleware/auth';
-import { getTargets, getDailyValues } from '../controllers/target.controller';
+import { requireLogin } from '../middleware/auth.js';
+import { getTargets, getDailyValues } from '../controllers/target.controller.js';
 
 const router = express.Router();
 
